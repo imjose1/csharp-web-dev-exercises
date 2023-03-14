@@ -28,23 +28,57 @@ namespace Classes_Part_2
         }
 
         // TODO: Complete the AddGrade method.
-        public void AddGrade(int courseCredits, double grade)
+        public double AddGrade(int courseCredits, double grade)
         {
             // Update the appropriate properties: NumberOfCredits, Gpa
+               
+            double totalQualityScore = Gpa * NumberOfCredits;
+            totalQualityScore += courseCredits * grade;
+            NumberOfCredits += courseCredits;
+            Gpa = totalQualityScore / NumberOfCredits;
+            return Gpa;
+
         }
 
         //TODO: Complete the GetGradeLevel method here:
-        public string GetGradeLevel(int credits)
+        public string GetGradeLevel()
         {
             // Determine the grade level of the student based on NumberOfCredits
-            return "grade level tbd";
+            if(NumberOfCredits <= 29) {
+                return "Fresman";
+            }else if (NumberOfCredits <= 59)
+            {
+                return "Sophomore";
+            }else if (NumberOfCredits <= 89)
+            {
+                return "Junior";
+            }
+            else
+            {
+                return "Senior";
+            }
+           
         }
 
         // TODO: Add your custom 'ToString' method here. Make sure it returns a well-formatted string rather
         //  than just the class fields.
-
+        public override string ToString()
+        {
+            return $" Nme: {name} ID: {StudentId} Gpa: {Gpa}";
+        }
         // TODO: Add your custom 'Equals' method here. Consider which fields should match in order to call two
         //  Student objects equal.
+        public override bool Equals(object? obj)
+        {
+            return obj is Student student &&
+                   StudentId == student.StudentId;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(StudentId);
+        }
+       
     }
 }
 
